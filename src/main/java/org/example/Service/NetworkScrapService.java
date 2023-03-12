@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class Network
+public class NetworkScrapService
 {
     static private OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(999, TimeUnit.SECONDS)
@@ -20,7 +20,7 @@ public class Network
 
     @NotNull
     @SneakyThrows
-    static public Response Request(String site) throws IOException
+    static public Response requestScrap(String site) throws IOException
     {
         Request request = new Request.Builder()
                 .url(site)

@@ -1,33 +1,16 @@
 package org.example.Config;
 
-import org.jetbrains.annotations.NotNull;
+public class Consts {
+    static public String SITE_MANGA_LIVRE = "https://mangalivre.net";
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+    static public String ENDPOINT_SEARCH = "/lib/search/series.json";
 
-//CLASSE RES
-public class Consts
-{
-    //Site que iremos utilizar para criar fazer o acesso:
-    static public String SITE_UNION = "https://unionleitor.top/";
-    static public String SITE_MANGA_LIVRE;
+    static public String ENDPOINT_CHAPTERS = "/series/chapters_list.json";
 
+    static public String ENDPOINT_PAGE_MANGA = "/manga/null";
 
-    //inverte um map
-    public static <K, V> Map<K, V> reverseMap(@NotNull Map<K, V> map) {
-        Map<K, V> reversedMap = new LinkedHashMap<>();
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            reversedMap.put(entry.getKey(), entry.getValue());
-        }
-        return reversedMap;
-    }
-
-    //Função para facilitar pegar um index de um map...
-    public static <K, V> Object getItemByIndexMap(@NotNull Map<K, V> map, Integer index)
-    {
-        Object key = map.keySet().toArray()[index];
-        Object value = map.get(key);
-        return value;
-    }
+    static public String GET_SEARCH() { return SITE_MANGA_LIVRE + ENDPOINT_SEARCH; }
+    static public String GET_PAGE_MANGA() { return SITE_MANGA_LIVRE + ENDPOINT_PAGE_MANGA; }
+    static public String GET_CHAPTERS() { return SITE_MANGA_LIVRE + ENDPOINT_CHAPTERS; }
 
 }
