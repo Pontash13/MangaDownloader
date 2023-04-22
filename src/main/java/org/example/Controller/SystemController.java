@@ -1,8 +1,14 @@
 package org.example.Controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import lombok.SneakyThrows;
+import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.Book;
+import nl.siegmann.epublib.domain.Resource;
+import nl.siegmann.epublib.epub.EpubWriter;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,11 +28,16 @@ public class SystemController
     //Pasta padrão de criação:
     private String folderCache = System.getProperty("java.io.tmpdir");
     private String folderName  = "MangaDownloader";
+    static public String folderSaveManga = "C:\\Users\\Pontash\\Documents\\Mangas";
 
+    public String returnNameCache()
+    {
+        return folderCache + folderName;
+    }
 
     //retorno de um nome aleatório
     //?? talvez deva ser uma enum...
-    private String returnNameTemp()
+    public String returnNameTemp()
     {
         Random rand = new Random();
         return rand.ints('a', 'z' + 1)
@@ -115,5 +126,8 @@ public class SystemController
             e.printStackTrace();
         }
     }
+
+
+
 }
 

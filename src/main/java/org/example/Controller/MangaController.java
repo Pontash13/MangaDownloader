@@ -8,6 +8,8 @@ import lombok.SneakyThrows;
 import okhttp3.Response;
 import org.example.Config.Consts;
 import org.example.Model.Chapter;
+import org.example.Model.ChapterModels.ListPages;
+import org.example.Model.ChapterModels.Page;
 import org.example.Model.ListChapter;
 import org.example.Model.ListManga;
 import org.example.Model.Manga;
@@ -16,8 +18,16 @@ import org.example.Service.NetworkScrapService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.Format;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 //Classe que ira manipular os mangas
@@ -89,10 +99,30 @@ public class MangaController
     }
 
 
-    public void downloadImages(String link)
+    @SneakyThrows
+    public void downloadChapter(String cap,Integer idRelease, String name)
     {
+        SystemController sys = new SystemController();
+        sys.returnNameCache();
+        String folder = sys.createFolder();
 
+        String response = NetWorkAPIService.postFormToUrl(Consts.GET_PAGES(idRelease),
+                "", "GET");
+
+        gson = new Gson();
+        ListPages pages = gson.fromJson(response, ListPages.class);
+
+        Integer cont = 0;
+        for (Page page : pages.getPages())
+        {
+            cont++;
+            sys.downloadImagem(page.legacy, name + cont.toString(), folder);
+            break;
+        }
+
+        FormatController format = new FormatController();
+        format.createEPUB(folder, name, cap);
+        System.out.println(folder);
+        sys.deleteFolder(new ArrayList<String>(Arrays.asList(folder)));
     }
-
-
 }

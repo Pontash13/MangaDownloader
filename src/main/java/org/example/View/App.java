@@ -4,7 +4,6 @@ import org.example.Config.MethodsProt;
 import org.example.Controller.MangaController;
 import org.example.Model.Chapter;
 import org.example.Model.ChapterModels.Release;
-import org.example.Model.ListChapter;
 import org.example.Model.ListManga;
 import org.example.Model.Manga;
 
@@ -151,7 +150,7 @@ public class App extends JFrame {
 
 
     private void initSearchCaps(Integer idSerie) {
-        String[] columns = {"Número Capítulo", "Nome", "Data", "link"};
+        String[] columns = {"Número Capítulo", "Nome", "Data", "idRelease", "nameManga"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
         initLoading();
@@ -170,10 +169,21 @@ public class App extends JFrame {
                 Release release = (Release) MethodsProt.getItemByIndexMap(cap.getReleases(), 0);
                 tableModel.addRow(new Object[] {
                         cap.getNumber(), cap.getChapter_name(),
-                        cap.getDate(), release.getLink()
+                        cap.getDate(),  release.getId_release(), cap.getName()
                 });
             }
             tableResults.setModel(tableModel);
+
+            TableColumnModel columnModel = tableResults.getColumnModel();
+            TableColumn lastColumn1 = columnModel.getColumn(columnModel.getColumnCount() - 1);
+            lastColumn1.setWidth(0);
+            lastColumn1.setMinWidth(0);
+            lastColumn1.setMaxWidth(0);
+
+            TableColumn lastColumn2 = columnModel.getColumn(columnModel.getColumnCount() - 2);
+            lastColumn2.setWidth(0);
+            lastColumn2.setMinWidth(0);
+            lastColumn2.setMaxWidth(0);
         }
     }
 
@@ -190,10 +200,13 @@ public class App extends JFrame {
 
     private void initDownload()
     {
-
         for(int selectedRows : tableResults.getSelectedRows())
         {
-
+            DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
+            String cap = (String) model.getValueAt(selectedRows, 0);
+            Integer link = (Integer) model.getValueAt(selectedRows, 3);
+            String name  = (String) model.getValueAt(selectedRows, 4);
+            mangaController.downloadChapter(cap ,link, name);
         }
     }
 }
