@@ -23,10 +23,13 @@ public class Chapter
 
     @SerializedName("number")
     private String number;
+
     @SerializedName("date")
     private String date;
+
     @SerializedName("date_created")
     private Date date_created;
+
     @SerializedName("releases")
     private Map<String, Release> releases;
 

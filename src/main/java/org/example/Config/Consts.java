@@ -1,5 +1,7 @@
 package org.example.Config;
 
+
+//todo, retirar essas contantes assim, pois no futuro poderei utilizar outros sites
 public class Consts {
     static public String SITE_MANGA_LIVRE = "https://mangalivre.net";
 

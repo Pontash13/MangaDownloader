@@ -2,7 +2,7 @@ package org.example.Service;
 
 
 /**
- * Classe responsável por pegar infos e deixar o arquivo mais bonito...
+ * Classe responsável por pegar infos
  */
 public class APIMangaInfo
 {

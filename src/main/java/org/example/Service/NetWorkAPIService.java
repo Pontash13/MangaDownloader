@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Classe responsavel por todos os métodos....
+ */
 public class NetWorkAPIService {
 
     @SneakyThrows
@@ -20,34 +23,34 @@ public class NetWorkAPIService {
         if(method == "GET")
             params = form;
 
-        HttpURLConnection conexao = (HttpURLConnection) new URL(url + params).openConnection();
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + params).openConnection();
 
         //Tem locais utilizando este método em outros locais...
-        conexao.setRequestMethod(method);
-        conexao.setDoOutput(true);
+        connection.setRequestMethod(method);
+        connection.setDoOutput(true);
 
 
         String data = form;
         byte[] dataBytes = data.getBytes("UTF-8");
 
 
-        conexao.setRequestProperty("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-        conexao.setRequestProperty("x-requested-with", "XMLHttpRequest");
+        connection.setRequestProperty("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+        connection.setRequestProperty("x-requested-with", "XMLHttpRequest");
 
 
-        try (OutputStream outputStream = conexao.getOutputStream()) {
+        try (OutputStream outputStream = connection.getOutputStream()) {
             outputStream.write(dataBytes);
         }
 
-        // Lê a resposta da requisição
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+        // Lê a response da requisição
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String line;
-        StringBuilder resposta = new StringBuilder();
+        StringBuilder response = new StringBuilder();
         while ((line = reader.readLine()) != null) {
-            resposta.append(line);
+            response.append(line);
         }
         reader.close();
 
-        return resposta.toString();
+        return response.toString();
     }
 }

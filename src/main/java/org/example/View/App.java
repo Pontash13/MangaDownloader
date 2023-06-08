@@ -15,6 +15,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+
+/**
+ * TODO temos que orientar melhor isso e tira métodos daqui...
+ */
 public class App extends JFrame {
     private JTextField fieldSearch;
     private JButton buttonSearch;
@@ -129,6 +133,7 @@ public class App extends JFrame {
             for (Manga manga : listManga.getListManga()) {
                 tableModel.addRow(new Object[] {manga.getIdSerie(), manga.getName(),
                         manga.getAuthor(), manga.getScore(),
+                        //todo, tem que virar um enum
                         manga.isComplete() ? "Completo" : "Em lançamento", manga.getCover(),
                         manga.getDescription()});
             }
@@ -150,6 +155,7 @@ public class App extends JFrame {
 
 
     private void initSearchCaps(Integer idSerie) {
+        //todo tem que virar enum
         String[] columns = {"Número Capítulo", "Nome", "Data", "idRelease", "nameManga"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
@@ -158,6 +164,7 @@ public class App extends JFrame {
 
         if (listChapter == null)
         {
+            //todo tem que virar um enum
             JOptionPane.showMessageDialog(null,
                     "O Manga não tem capítulos\nTente outro título", "Erro!", JOptionPane.WARNING_MESSAGE);
         }
@@ -166,6 +173,7 @@ public class App extends JFrame {
             tableModel.setRowCount(0);
             for (Chapter cap : listChapter)
             {
+                //todo revisar
                 Release release = (Release) MethodsProt.getItemByIndexMap(cap.getReleases(), 0);
                 tableModel.addRow(new Object[] {
                         cap.getNumber(), cap.getChapter_name(),
@@ -175,11 +183,13 @@ public class App extends JFrame {
             tableResults.setModel(tableModel);
 
             TableColumnModel columnModel = tableResults.getColumnModel();
+            //todo - revisar
             TableColumn lastColumn1 = columnModel.getColumn(columnModel.getColumnCount() - 1);
             lastColumn1.setWidth(0);
             lastColumn1.setMinWidth(0);
             lastColumn1.setMaxWidth(0);
 
+            //todo - revisar - nomes
             TableColumn lastColumn2 = columnModel.getColumn(columnModel.getColumnCount() - 2);
             lastColumn2.setWidth(0);
             lastColumn2.setMinWidth(0);
@@ -188,11 +198,14 @@ public class App extends JFrame {
     }
 
 
+
+    //todo fazer funcionar
     private void initLoading()
     {
         String[] columns = {"-"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         tableModel.setRowCount(0);
+        //todo transformar em enum
         tableModel.addRow(new Object[] {"CARREGANDO...."});
         tableResults.setModel(tableModel);
     }
@@ -202,6 +215,7 @@ public class App extends JFrame {
     {
         for(int selectedRows : tableResults.getSelectedRows())
         {
+            //todo retirar essa lógica porca
             DefaultTableModel model = (DefaultTableModel) tableResults.getModel();
             String cap = (String) model.getValueAt(selectedRows, 0);
             Integer link = (Integer) model.getValueAt(selectedRows, 3);

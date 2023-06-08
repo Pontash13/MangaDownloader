@@ -14,7 +14,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 
-//Irá formatar o manga em um formato feliz
+/**
+ * Classe responsável por transformar em um EPUB
+ * todo, acho que esse campo deve estar em um service e dependendo do formato colocado pelo o usuário, chamar o método certo
+ */
 public class FormatController
 {
     @SneakyThrows
@@ -48,6 +51,7 @@ public class FormatController
         }
 
         // Salva o livro EPUB
+        //todo melhorar isso de colocar o nome
         EpubWriter epubWriter = new EpubWriter();
         epubWriter.write(book, new FileOutputStream(SystemController.folderSaveManga + "\\" +
                 name + "_" + cap + ".epub" ));

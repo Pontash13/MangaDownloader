@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//CLASSE RES
+/**
+ * Uma class praticamente de útilidades
+ */
 public class MethodsProt
 {
 
